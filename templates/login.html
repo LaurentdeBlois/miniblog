@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Connexion</h1>
+<form method="POST">
+    <div>
+        <label for="username">Nom d'utilisateur:</label><br>
+        <input type="text" id="username" name="username" required>
+    </div>
+    <div style="margin-top: 1rem;">
+        <label for="password">Mot de passe:</label><br>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <div style="margin-top: 1rem;">
+        <button type="submit">Se connecter</button>
+    </div>
+</form>
+{% endblock %}

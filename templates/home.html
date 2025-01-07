@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Bienvenue sur MiniBlog</h1>
+
+{% if current_user.is_authenticated %}
+    <div style="margin: 2rem 0;">
+        <a href="{{ url_for('new_article') }}" style="padding: 0.5rem 1rem; background: #333; color: white; text-decoration: none; border-radius: 4px;">
+            Nouvel Article
+        </a>
+    </div>
+{% endif %}
+
+<div class="articles">
+    {% for article in articles %}
+        <article style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
+            <h2>
+                <a href="{{ url_for('view_article', id=article.id) }}" style="color: #333; text-decoration: none;">
+                    {{ article.title }}
+                </a>
+            </h2>
+            <div style="color: #666; font-size: 0.9rem;">
+                Publié le {{ article.created_date.strftime('%d/%m/%Y') }}
+                {% if article.tags %}
+                    | Tags: {{ article.tags }}
+                {% endif %}
+            </div>
+            {% if current_user.is_authenticated %}
+                <div style="margin-top: 1rem;">
+                    <a href="{{ url_for('edit_article', id=article.id) }}" style="color: #666; margin-right: 1rem;">Modifier</a>
+                    <form action="{{ url_for('delete_article', id=article.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')" 
+                                style="background: none; border: none; color: #666; cursor: pointer;">
+                            Supprimer
+                        </button>
+                    </form>
+                </div>
+            {% endif %}
+        </article>
+    {% else %}
+        <p>Aucun article pour le moment.</p>
+    {% endfor %}
+</div>
+{% endblock %}

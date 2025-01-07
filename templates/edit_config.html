@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Configuration du Blog</h1>
+
+<form method="POST" style="max-width: 600px;">
+    <div style="margin-bottom: 1rem;">
+        <label for="title">Titre du blog:</label><br>
+        <input type="text" id="title" name="title" value="{{ config.title }}" 
+               required style="width: 100%; padding: 0.5rem;"
+               maxlength="200">
+        <small style="color: #666;">Maximum 200 caractères</small>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+        <label for="baseline">Baseline (description courte):</label><br>
+        <textarea id="baseline" name="baseline" rows="3" 
+                  style="width: 100%; padding: 0.5rem;"
+                  maxlength="500">{{ config.baseline or '' }}</textarea>
+        <small style="color: #666;">Maximum 500 caractères</small>
+    </div>
+    
+    <div>
+        <button type="submit" style="padding: 0.5rem 1rem; background: #333; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Enregistrer
+        </button>
+        <a href="{{ url_for('home') }}" style="margin-left: 1rem; color: #666;">Annuler</a>
+    </div>
+</form>
+{% endblock %}

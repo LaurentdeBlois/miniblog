@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ article.title if article else "Nouvel Article" }}</h1>
+
+<form method="POST" style="max-width: 800px;">
+    <div style="margin-bottom: 1rem;">
+        <label for="title">Titre:</label><br>
+        <input type="text" id="title" name="title" value="{{ article.title if article else '' }}" 
+               required style="width: 100%; padding: 0.5rem;"
+               maxlength="200">
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+        <label for="content">Contenu (Markdown):</label><br>
+        <textarea id="content" name="content" rows="15" required 
+                  style="width: 100%; padding: 0.5rem; font-family: monospace;"
+                  maxlength="50000">{{ article.content if article else '' }}</textarea>
+        <small style="color: #666;">Limite : 50000 caractères</small>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+        <label for="tags">Tags (séparés par des virgules):</label><br>
+        <input type="text" id="tags" name="tags" value="{{ article.tags if article else '' }}"
+               style="width: 100%; padding: 0.5rem;"
+               maxlength="200">
+        <small style="color: #666;">Maximum 10 tags, 50 caractères par tag</small>
+    </div>
+    
+    <div>
+        <button type="submit" style="padding: 0.5rem 1rem; background: #333; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            {{ "Modifier" if article else "Créer" }}
+        </button>
+        <a href="{{ url_for('home') }}" style="margin-left: 1rem; color: #666;">Annuler</a>
+    </div>
+</form>
+
+<div style="margin-top: 2rem;">
+    <h3>Guide Markdown</h3>
+    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px;">
+# Titre 1
+## Titre 2
+### Titre 3
+
+**Texte en gras**
+*Texte en italique*
+
+- Liste à puces
+- Autre élément
+
+1. Liste numérotée
+2. Deuxième élément
+
+[Lien](https://example.com)
+
+> Citation
+
+`Code inline`
+
+```
+Bloc de code
+```
+    </pre>
+</div>
+{% endblock %}
