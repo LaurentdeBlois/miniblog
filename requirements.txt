@@ -5,3 +5,4 @@ Markdown==3.5.1
 python-dotenv==1.0.0
 Werkzeug==3.0.1
 bleach==6.1.0
+gunicorn==21.2.0
